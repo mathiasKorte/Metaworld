@@ -205,6 +205,9 @@ class SawyerXYZEnv(SawyerMocapBase, EzPickle):
 
         self._partially_observable: bool = True
 
+        # force own camera position
+        camera_name = 'corner2'
+
         super().__init__(
             self.model_name,
             frame_skip=frame_skip,
@@ -212,6 +215,9 @@ class SawyerXYZEnv(SawyerMocapBase, EzPickle):
             camera_name=camera_name,
             camera_id=camera_id,
         )
+
+        # force own camera position
+        self.model.cam_pos[2][:] = [0.75, 0.075, 0.7]
 
         mujoco.mj_forward(
             self.model, self.data
